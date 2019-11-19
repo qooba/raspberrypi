@@ -71,3 +71,16 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 sudo apt-get update
 sudo apt-get install -qy kubeadm
 ```
+
+## Run docker image on raspberry pi
+
+run on raspberry pi:
+```
+docker run -it -p 5000:5000 --device /dev/video0:/dev/video0 qooba/raspberrypi:gstreamer /start.sh --framerate 30
+```
+
+run on client:
+```
+/usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.x.x port=5000 ! gdpdepay ! jpegparse ! jpegdec ! videoconvert  ! autovideosink sync=false
+```
+
