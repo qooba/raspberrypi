@@ -84,3 +84,37 @@ run on client:
 /usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.x.x port=5000 ! gdpdepay ! jpegparse ! jpegdec ! videoconvert  ! autovideosink sync=false
 ```
 
+
+raspberry
+```
+gst-launch-1.0 -v v4l2src device=/dev/video0 ! jpegenc ! gdppay ! tcpserversink host=0.0.0.0 port=5000
+```
+
+client:
+```
+/usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.0.101 port=5000 ! gdpdepay ! jpegparse ! jpegdec ! autovideosink sync=false
+```
+
+
+with browser 
+
+server:
+```
+gst-launch-1.0 -v v4l2src device=/dev/video0 ! videoconvert ! videoscale ! video/x-raw,width=320,height=240 ! clockoverlay shaded-background=true font-desc="Sans 38" ! theoraenc ! oggmux ! tcpserversink host=0.0.0.0 port=5000
+```
+
+client
+```
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <title>gst-stream</title>
+        </head>
+        <body>
+                <video width=320 height=240 autoplay>
+                        <source src="http://localhost:8080">
+                </video>
+        </body>
+</html>
+```
