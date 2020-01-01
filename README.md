@@ -92,7 +92,15 @@ gst-launch-1.0 -v v4l2src device=/dev/video0 ! jpegenc ! gdppay ! tcpserversink 
 
 client:
 ```
-/usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.0.101 port=5000 ! gdpdepay ! jpegparse ! jpegdec ! autovideosink sync=false
+/usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.*.* port=5000 ! gdpdepay ! jpegparse ! jpegdec ! autovideosink sync=false
+
+/usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.*.* port=5000 ! gdpdepay ! jpegparse ! jpegdec ! videoconvert ! x264enc qp-min=18 ! avimux ! filesink location=output.avi
+
+/usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.0.101 port=5000 num-buffers=1 ! gdpdepay ! jpegparse ! jpegdec ! filesink location=./test.jpg
+
+/usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.0.101 port=5000 ! gdpdepay ! jpegparse ! jpegdec ! videoconvert ! pngenc snapshot=true ! filesink location=a.png
+
+
 ```
 
 
