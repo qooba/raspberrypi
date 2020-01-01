@@ -100,7 +100,7 @@ client:
 
 /usr/bin/gst-launch-1.0 -v tcpclientsrc host=192.168.0.101 port=5000 ! gdpdepay ! jpegparse ! jpegdec ! videoconvert ! pngenc snapshot=true ! filesink location=a.png
 
-
+/usr/bin/gst-launch-1.0 -v tcpclientsrc host=qba-jetson port=5000 ! gdpdepay ! jpegparse ! jpegdec ! videoconvert ! jpegenc snapshot=true ! filesink location=1.jpg
 ```
 
 
